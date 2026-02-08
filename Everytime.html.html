@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>삼승의대 에브리타임</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #f4f4f7; font-family: 'Pretendard', -apple-system, sans-serif; color: #333; }
+        .post-card { border: 1px solid #e3e3e3; border-radius: 12px; margin-bottom: 16px; background: #fff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); overflow: hidden; }
+        .post-body { padding: 18px; cursor: pointer; }
+        .comment-section { display: none; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, opacity 0.3s ease-in; opacity: 0; background-color: #f9f9fb; padding: 10px 18px; border-top: 1px solid #f2f2f2; }
+        .comment-item { border-bottom: 1px solid #eee; padding: 10px 0; font-size: 13px; }
+        .comment-item:last-child { border-bottom: none; }
+        .et-red { color: #c62917; }
+        .hot-badge { background: #fff1f0; color: #c62917; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; border: 1px solid #ffccc7; margin-right: 6px; }
+        .author-tag { color: #2b6cb0; font-weight: bold; }
+        .page { display: none; }
+        .page.active { display: block; }
+    </style>
+</head>
+<body class="max-w-md mx-auto min-h-screen bg-gray-50 border-x border-gray-200 relative">
+
+    <header class="sticky top-0 bg-white/90 backdrop-blur-md border-b p-4 z-50 flex justify-between items-center">
+        <div><span class="et-red font-black text-2xl tracking-tighter">everytime</span><p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Samseung Univ.</p></div>
+        <div class="flex gap-4 text-xl opacity-30">🔍 👤</div>
+    </header>
+
+    <main class="pb-32">
+        <section id="page-home" class="page active p-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold italic et-red">Samseung Univ.</h2>
+                <div class="flex gap-3 opacity-40">🔔 ⚙️</div>
+            </div>
+
+            <div class="bg-gradient-to-br from-gray-900 to-gray-800 p-5 rounded-2xl mb-4 shadow-lg text-white">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-xs font-bold bg-red-600 px-2 py-1 rounded">D-7</span>
+                    <span class="text-[10px] opacity-60">본과 2학년 1학기</span>
+                </div>
+                <p class="text-lg font-bold">심혈관계 블록 1차 평가</p>
+                <p class="text-xs opacity-80 mt-1">범위: 흉부외과 전범위 + 생리학 (약 1,200p)</p>
+                <div class="w-full bg-white/20 h-1.5 rounded-full mt-4">
+                    <div class="bg-red-500 h-1.5 rounded-full" style="width: 85%"></div>
+                </div>
+                <p class="text-[10px] mt-2 text-right opacity-50 text-white">동기 160명 중 136명이 밤샘 중</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm mb-4">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-sm font-bold">내 정보</span>
+                    <span class="text-[10px] bg-gray-100 px-2 py-1 rounded text-gray-500">본과 2학년 (A반)</span>
+                </div>
+                <div class="flex gap-4 text-center">
+                    <div class="flex-1 border-r">
+                        <p class="text-[10px] text-gray-400">이번 학기 학점</p>
+                        <p class="font-bold text-lg italic">?.??</p>
+                    </div>
+                    <div class="flex-1 border-r">
+                        <p class="text-[10px] text-gray-400">재시(Re-test)</p>
+                        <p class="font-bold text-lg text-red-500">2</p>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-[10px] text-gray-400">남은 쿼터</p>
+                        <p class="font-bold text-lg">3/4</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mb-4">
+                <div onclick="openCalendar()" class="bg-red-50 p-4 rounded-2xl border border-red-100 shadow-sm flex flex-col items-center gap-2 cursor-pointer active:scale-95 transition">
+                    <span class="text-2xl">📅</span>
+                    <span class="text-xs font-bold text-red-700">학사일정</span>
+                </div>
+                <div onclick="alert('🍎 오늘 식단 (학식)\n- 중식: 돈까스 vs 김치찜\n- 석식: 제육볶음\n* 특이사항: 의대 매점 레드불 1+1 행사 중')" 
+                     class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center gap-2 cursor-pointer active:scale-95 transition opacity-80">
+                    <span class="text-2xl">🍎</span>
+                    <span class="text-xs font-bold text-gray-600">오늘식단</span>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm mb-4 text-left">
+                <div class="flex justify-between items-center mb-4">
+                    <h4 class="font-bold text-sm text-gray-800">🗓️ 오늘 시간표 (본2-A반)</h4>
+                    <span class="text-[10px] text-blue-500 font-bold px-2 py-0.5 bg-blue-50 rounded-full">Full-day</span>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex border-l-4 border-red-500 pl-3">
+                        <div class="text-[11px] w-12 text-gray-400">09:00</div>
+                        <div class="text-xs font-bold">심장해부학 실습 <span class="text-gray-400 font-normal ml-1">백서진 교수님</span></div>
+                    </div>
+                    <div class="flex border-l-4 border-gray-200 pl-3">
+                        <div class="text-[11px] w-12 text-gray-400">13:00</div>
+                        <div class="text-xs font-bold">순환기 내과학 총론 <span class="text-gray-400 font-normal ml-1">201호</span></div>
+                    </div>
+                    <div class="flex border-l-4 border-gray-200 pl-3">
+                        <div class="text-[11px] w-12 text-gray-400">16:00</div>
+                        <div class="text-xs font-bold">PBL 세미나 <span class="text-gray-400 font-normal ml-1">소회의실</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
+                <h4 class="font-bold text-sm mb-3">🔥 실시간 인기글</h4>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-gray-600 truncate mr-4">백서진 교수님 과제 양 실화냐? 진짜 죽겠다</span>
+                        <span class="text-red-500 font-bold">👍 82</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-gray-600 truncate mr-4">해부학 땡시 족보 팝니다 (선착순)</span>
+                        <span class="text-red-500 font-bold">👍 54</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="calendar-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeCalendar()"></div>
+        <div class="absolute bottom-0 left-0 right-0 max-w-md mx-auto bg-white rounded-t-[2.5rem] p-8 transition-transform transform translate-y-full shadow-2xl" id="modal-content">
+            <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-8"></div>
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h3 class="text-2xl font-black text-gray-900">2026년 2월</h3>
+                    <p class="text-xs text-red-500 font-bold mt-1">● 삼승의대 본과 2학년 학사일정</p>
+                </div>
+                <button onclick="closeCalendar()" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 hover:bg-gray-200 transition">&times;</button>
+            </div>
+            
+            <div class="grid grid-cols-7 gap-1 mb-6 text-center text-[10px] font-black text-gray-300 uppercase tracking-widest">
+                <span>sun</span><span>mon</span><span>tue</span><span>wed</span><span>thu</span><span>fri</span><span>sat</span>
+            </div>
+            <div class="grid grid-cols-7 gap-1 text-center text-sm font-medium mb-10">
+                <span class="py-3 text-red-300 opacity-40">1</span><span class="py-3 opacity-40">2</span><span class="py-3 opacity-40">3</span><span class="py-3 opacity-40">4</span><span class="py-3 opacity-40">5</span><span class="py-3 opacity-40">6</span><span class="py-3 opacity-40">7</span>
+                <span class="py-3 text-red-500">8</span>
+                <span class="py-3 relative flex items-center justify-center">
+                    <span class="z-10 font-bold text-red-600">9</span>
+                    <span class="absolute w-8 h-8 bg-red-50 rounded-full border border-red-100"></span>
+                </span>
+                <span class="py-3">10</span><span class="py-3">11</span><span class="py-3">12</span><span class="py-3">13</span><span class="py-3 text-blue-500">14</span>
+                <span class="py-3 text-red-500 font-bold">15</span>
+                <span class="py-3 relative flex items-center justify-center">
+                    <span class="z-10 font-black">16</span>
+                    <span class="absolute bottom-1 w-1 h-1 bg-blue-500 rounded-full"></span>
+                </span>
+                <span class="py-3">17</span><span class="py-3">18</span><span class="py-3 font-bold text-orange-500">19</span><span class="py-3">20</span><span class="py-3 text-blue-500 font-bold">21</span>
+                <span class="py-3 text-red-500 font-bold">22</span>
+                <span class="py-3 relative flex items-center justify-center">
+                    <span class="z-10 text-white font-black">23</span>
+                    <span class="absolute w-9 h-9 bg-red-600 rounded-xl shadow-lg shadow-red-200 rotate-3"></span>
+                </span>
+                <span class="py-3">24</span><span class="py-3 font-bold">25</span><span class="py-3 font-bold">26</span><span class="py-3 font-bold">27</span><span class="py-3 text-blue-500 font-bold">28</span>
+            </div>
+
+            <div class="space-y-6 overflow-y-auto pr-2" style="max-height: 280px;">
+                <div>
+                    <p class="text-[10px] font-black text-gray-400 mb-3 uppercase tracking-tighter">University Common</p>
+                    <div class="flex items-center gap-4 bg-gray-50 p-3 rounded-xl">
+                        <div class="text-center border-r pr-3 border-gray-200">
+                            <p class="text-[10px] text-gray-400 leading-none">FEB</p>
+                            <p class="text-lg font-black text-gray-700">19</p>
+                        </div>
+                        <p class="text-xs font-bold text-gray-600">2026학년도 전기 학위수여식(졸업식)</p>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="text-[10px] font-black text-red-400 mb-3 uppercase tracking-tighter">Medical School Only</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-4 bg-blue-50 p-3 rounded-xl border border-blue-100">
+                            <div class="text-center border-r pr-3 border-blue-200">
+                                <p class="text-[10px] text-blue-400 leading-none">FEB</p>
+                                <p class="text-lg font-black text-blue-700">16</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-black text-blue-800 italic">심혈관계 블록 강의 시작</p>
+                                <p class="text-[9px] text-blue-400">대강당 / 09:00 OT 필수</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 bg-red-600 p-4 rounded-xl shadow-lg shadow-red-100 relative overflow-hidden">
+                            <span class="absolute right-[-5px] bottom-[-10px] text-5xl opacity-10">☠️</span>
+                            <div class="text-center border-r pr-3 border-white/20">
+                                <p class="text-[10px] text-white/70 leading-none font-bold">FEB</p>
+                                <p class="text-xl font-black text-white">23</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-black text-white underline underline-offset-4 decoration-2">백서진 교수님 총괄 평가</p>
+                                <p class="text-[10px] text-white/80 font-bold mt-1">※ F학점 시 즉시 유급 확정</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openCalendar() {
+            const modal = document.getElementById('calendar-modal');
+            const content = modal.querySelector('#modal-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('translate-y-full');
+                content.classList.add('translate-y-0');
+            }, 10);
+        }
+
+        function closeCalendar() {
+            const modal = document.getElementById('calendar-modal');
+            const content = modal.querySelector('#modal-content');
+            content.classList.remove('translate-y-0');
+            content.classList.add('translate-y-full');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
+
+</section>
+
+       <section id="page-board" class="page active p-4">
+            <h2 class="text-2xl font-bold mb-6">자유게시판</h2>
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=A&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">방금</span></div>
+                <h3 class="font-bold text-lg mb-2"><span class="hot-badge">HOT</span> 백서진 교수님 안경 레이저 직관한 썰</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">방금 수술방 실습 들어갔는데, 1년차 쌤이 사소한 오차 내니까 교수님 안경 슥 내리면서 "너 지금 뭐 하니? 1mm가 환자 인생을 결정한다는 말, 농담으로 들었어?" 하시는데... 와 진심 소름 돋음. 공기가 얼어붙는다는 게 이런 거구나 싶더라.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 156</span><span class="text-cyan-600">💬 4</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>그거 흉부외과 전설의 '킬링 아이즈' 아님? 살아 돌아온 걸 축하한다.</div>
+                <div class="comment-item"><b>익명 2</b><br><span class="text-blue-600">ㄴ근데 솔직히 손놀림 보면 반박 불가능 아님? 갓서진은 갓서진임.</span></div>
+                <div class="comment-item"><b>익명 3</b><br>말투에서 이미 베였다... 역시 냉혈한 칼잡이...</div>
+                <div class="comment-item"><span class="author-tag">글쓴이</span><br>무서운데 섹시해서 더 짜증나;; 본과 4년 인생 최고의 긴장감이었다</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=J&background=E2E8F0&color=64748B&size=24" class="rounded-md"><span class="font-bold text-sm">유급만은제발</span><span class="text-xs text-gray-400">5분 전</span></div>
+                <h3 class="font-bold text-lg mb-2">내과 족보(야마) 누가 안 탄다 했냐???</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">선배들이 이번에 족보에서 90% 나온다고 장담하더니만... 오늘 시험지 펼치자마자 신규 문제 폭탄 맞음 ㅋㅋㅋ 교수님들 에타 눈팅하시는 게 분명함. 나 지금 멘붕 와서 해리슨 껴안고 울고 있다.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 124</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>ㄴ나도 ㅋㅋㅋ 족보만 믿고 술 마신 어제의 나를 죽이고 싶다</div>
+                <div class="comment-item"><b>익명 2</b><br>교수님들 매년 에타 반응 보고 문제 바꾸신다는 썰이 사실이었어...</div>
+                <div class="comment-item text-blue-600"><b>익명 3</b><br>이번 내과 낙제자(F) 30명 나온다는 소문 도는 중 조심해라</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=Fan&background=FFD700&color=fff&size=24" class="rounded-md"><span class="font-bold text-sm">백서진처돌이</span><span class="text-xs text-gray-400">10분 전</span></div>
+                <h3 class="font-bold text-lg mb-2">오늘자 교수님 ootd 미쳤음 (feat. 수트)</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">오늘 무슨 학회 있으신가? 맨날 입던 가운 말고 차콜 그레이 쓰리피스 수트 입고 출근하심. 복도 지나가시는데 진심 모델인 줄; 차가운 도시 의사 그 자체임. 교수님 제 심장도 바느질(Suture) 해주시면 안 될까요? ㅠㅠ</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 89</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>ㄴ님 심장은 suture가 아니라 심폐소생술이 먼저일 듯 ㅋㅋ</div>
+                <div class="comment-item"><b>익명 2</b><br>교수님 수트빨은 진짜 반칙임. 근데 눈 마주치면 바로 고개 숙이게 됨.</div>
+                <div class="comment-item text-blue-600"><b>익명 3</b><br>방금 연구실 앞에서 마주쳤는데 향수 냄택도 개좋아... 우디한 향...</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=K&background=FEE2E2&color=991B1B&size=24" class="rounded-md"><span class="font-bold text-sm">본1지옥</span><span class="text-xs text-gray-400">30분 전</span></div>
+                <h3 class="font-bold text-lg mb-2">해부학 실습 땡시 망한 사람 여기 모여라...</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">종소리 울릴 때마다 머릿속에서 시냅스 다 끊기는 기분임. 핀 꽂혀있는 신경 이름이 도대체 뭐였지? 집 와서 다시 보니까 말도 안 되는 거 적어놓고 왔네... 이래서 의사 하겠냐 나...</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 76</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>땡시의 공포는 겪어본 사람만 안다... 1초가 1시간 같음</div>
+                <div class="comment-item"><b>익명 2</b><br>난 저번에 교수님 손가락에 적힌 거 답인 줄 알고 적었다가 광탈함</div>
+                <div class="comment-item text-blue-600"><b>익명 3</b><br>울지마라... 재시험(재시)이라는 구원의 동아줄이 있다</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=B&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">1시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">백서진 교수님 와이프분 진짜 부러움...</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">저번에 교수님 밤샘 당직하고 복도에서 전화하는 거 우연히 들었는데, 말투가 180도 다름... "응, 나야. 어떡하지... 좀 늦을 것 같아. 미안해, 진짜 금방 갈게." 하는데 목소리에서 꿀 떨어짐. 우리 앞에서는 냉혈한인데 와이프 앞에서는 그냥 길들여진 늑대더라.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 112</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>세상에... 그 교수님이 '미안해'를 한다고? 내 귀가 의심된다</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>ㄴㄹㅇ 병원에서는 1mm 오차도 사과 안 받으시는 분이 ㅋㅋㅋ 반전 매력 오지네</div>
+                <div class="comment-item text-blue-600"><b>익명 3</b><br>미안함+죄책감 섞인 목소리였을 듯.. 교수님 와이프분 전생에 나라 구하신 듯</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=X&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">1시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">진심 흉부외과 퀴즈 보고 자퇴 마렵다</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">오늘 백교수님이 낸 'Fallot 4징증(TOF)의 해부학적 특징' 주관식 다 쓴 사람 있음? 나 하나 빼먹었는데 교수님이 지나가면서 내 답안지 슬쩍 보더니 "기본도 안 되어 있군." 하고 가심... 이거 유급 시그널이냐? 나 한강 가야 함?</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 42</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>ㄴ괜찮아 나도 VSD 위치 틀림. 우리 같이 유급하고 내년에 또 듣자 ^^</div>
+                <div class="comment-item"><b>익명 2</b><br>교수님 '기본'이라는 단어 쓰시면 진짜 화나신 건데... 명복을 빈다.</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=M&background=DCFCE7&color=166534&size=24" class="rounded-md"><span class="font-bold text-sm">삼김마스터</span><span class="text-xs text-gray-400">2시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">삼승의대 앞 GS25 삼각김밥 재고 실황 공유함</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">지금 전주비빔 3개 남았고 참치마요는 본과 2학년 애들이 다 쓸어감. 시험기간이라 그런지 편의점 밥도 경쟁 치열하네. 우리도 좀 인간답게 학식 먹으면서 공부하면 안 되냐...</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 38</span><span class="text-cyan-600">💬 0</span></div>
+            </div>
+            <div class="comment-section"><p class="text-sm text-gray-400">댓글이 없습니다.</p></div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=C&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">3시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">[강의평가] 흉부외과학 - 백서진</h3>
+                <div class="bg-gray-50 p-3 rounded-lg border mb-3 text-xs"><p class="font-bold">평점: ★ 3.8 / 5.0</p><p class="italic text-gray-400">"학점은 F와 D 사이를 줄타기하지만, 내용은 노벨상급임"</p></div>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">질문 대답 못 하면 무한 침묵 공격 당함. 근데 시험 문제는 강의에서 강조한 거 그대로 나옴. 꼼수 절대 안 통하고 정직하게 공부하는 놈만 살려주심. 실력 하나는 대한민국 원탑 인정.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 31</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>나 저번에 수업 때 졸다가 안경 너머로 3초 눈 마주쳤는데 자퇴할 뻔 함.</div>
+                <div class="comment-item"><b>익명 2</b><br>질문할 때 "생각이라는 걸 하고 있습니까?" 하는데 눈물 찔끔 나더라</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=S&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">4시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">백교수님 욕하면서도 존경하게 되는 이유</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">어제 CABG(관상동맥 우회술) 어시 들어갔는데 피 존나 튀고 난리 났거든. 근데 교수님 눈 하나 깜빡 안 하고 "석션, 릴랙스." 딱 두 마디 하고 상황 정리함. 학생들 멘탈 나간 거 보더니 "내일 아침까지 이 환자 경과 리포트 써와. 대충 쓰면 죽는다." 이러고 나가심. 근데 알고 보니 우리 밥 안 먹은 거 알고 식당에 미리 계산해두셨더라... 하...</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 210</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>츤데레 끝판왕이네 진짜 ㅋㅋ</div>
+                <div class="comment-item"><b>익명 2</b><br>밥은 사주시지만 리포트는 얄짤없으실 분 ㅋㅋㅋ</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=D&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">5시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">교수님 혈액형 검사하면 카페인 나올 듯</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">중환자실 회진 돌 때마다 손에 블랙커피 들려있음. 며칠째 안 주무시는 거 같은데 어떻게 저 피부랑 피지컬을 유지하시지? 37살 맞냐고... 나보다 10살 많은데 왜 내가 더 늙어 보이냐.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 22</span><span class="text-cyan-600">💬 0</span></div>
+            </div>
+            <div class="comment-section"><p class="text-sm text-gray-400">댓글이 없습니다.</p></div>
+        </div>
+        
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=L&background=FDF2F8&color=BE185D&size=24" class="rounded-md"><span class="font-bold text-sm">탈의대하고싶다</span><span class="text-xs text-gray-400">5시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">의대 CC 절대 하지 마라...</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">헤어졌는데 전공 수업 같이 듣고, 실습 조 같이 편성됨 ㅋㅋㅋ 심지어 교수님이 우리 둘한테 질문 동시에 던지는데 진짜 뛰어내리고 싶었다. 삼승의대 좁은 거 알지? 이미 온 동네 소문 다 남.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 95</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>ㄴ눈물 나네... 의대는 졸업할 때까지 같은 사람 보는 게 팩트</div>
+                <div class="comment-item"><b>익명 2</b><br>그래서 난 타과대생만 만남. 근데 만날 시간이 없네? ^오^</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+                <div class="post-body" onclick="toggleComments(this)">
+                     <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=L&background=FDF2F8&color=BE185D&size=24" class="rounded-md"><span class="font-bold text-sm">국시생본4</span><span class="text-xs text-gray-400">1일 전</span></div>
+                <h3 class="font-bold text-lg mb-2">진심으로 OS(정형외과)랑 CS(흉부외과) 사이에서 자아분열 중</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    성적은 딱 OS 보더라인인데, 실습 돌 때 백서진 교수님 수술방에서 본 <b>VSD(심실중격결손) Repair</b> 장면이 머릿속을 안 떠남.. <br><br>
+                    솔직히 <b>삶의 질</b> 생각하면 OS 가서 로컬 나가는 게 답인데, 어제 백교수님이 차트 던지면서 <b class="text-blue-700">"너는 돈 벌고 싶니, 아니면 심장 뛰는 걸 보고 싶니? 둘 다는 안 돼. 선택해."</b> 라고 하시는데 진심 심장 멎는 줄 알았다. <br><br>
+                    돈이냐 명예냐, 아니면 그냥 내 몸의 편안함이냐.. 선배님들 CS 가면 진짜 사람 사는 몰골이 아니게 되나요?</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 842</span><span class="text-cyan-600">💬 45</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item">
+                    <p class="text-[12px] font-bold text-blue-600">현직노예인턴</p>
+                    <p class="text-[13px] text-gray-700">ㄴ 야, 꿈 깨라. 나 지금 CS 돌고 있는데 3일 동안 <b>Pre-op(수술 전)</b> 체크랑 드레싱만 500번 한 것 같음. 백교수님? 그분은 사람이 아니라 정밀 로봇이야. 너 아까 그 대사 가스라이팅이야 임마 ㅋㅋㅋ 환자 심장 뛰는 건 보이는데 네 심장은 멈출 거다.</p>
+                </div>
+
+                <div class="comment-item">
+                    <p class="text-[12px] font-bold text-green-600">열혈본3</p>
+                    <p class="text-[13px] text-gray-700">ㄴ 선배님! 근데 CS 분위기 진짜 그렇게 빡센가요? 저번에 보니까 백교수님 <b>TEE(경식도 심초음파)</b> 판독하실 때 레지던트 선배님 거의 울기 직전이시던데.. 그게 다 교육인 거죠?</p>
+                </div>
+
+                <div class="comment-item ml-4 border-l-2 border-gray-200 pl-3">
+                    <p class="text-[11px] font-bold text-blue-600">현직노예인턴</p>
+                    <p class="text-[12px] text-gray-700">ㄴ 교육? 아니, '생존'이야. 소수점 하나 틀리면 교수님이 안경 슥 내리면서 <b class="text-blue-700 text-[11px]">"너 지금 환자 죽일 셈이니? 1mm가 농담 같아?"</b> 라고 하시는데 그 자리에서 <b>Asystole(심정지)</b> 올 뻔했다니까.</p>
+                </div>
+
+                <div class="comment-item">
+                    <p class="text-[12px] font-bold text-orange-500">해부학빌런본2</p>
+                    <p class="text-[13px] text-gray-700">ㄴ 저 질문 있습니다! 어제 야마(족보) 보는데 OS에서 <b>Open Reduction</b> 할 때 쓰는 기구 이름 다 외워야 하나요? CS는 매듭법(Tying)이 중요하다고 하던데 손기술 안 좋으면 아예 못 가나요?</p>
+                </div>
+
+                <div class="comment-item author-tag">
+                    <p class="text-[12px] font-bold text-white">글쓴이</p>
+                    <p class="text-[13px] text-gray-700">ㄴ 본2야.. 기구 이름이 문제가 아니라 네 멘탈이 <b>Comminuted Fracture(분쇄 골절)</b> 될 준비가 됐는지가 중요하다.. 하.. 백교수님 수술복 핏 보면 진짜 CS 가고 싶은데, 인턴 형님 말 들으니까 다시 OS 땡기네.</p>
+                </div>
+
+                <div class="comment-item">
+                    <p class="text-[12px] font-bold text-blue-600">OS지망인턴</p>
+                    <p class="text-[13px] text-gray-700">ㄴ 야, OS도 만만치 않아. 여긴 그냥 노가다야. <b>Hammering</b> 하다가 어깨 나가는 줄 알았다. 근데 로컬(개원가) 시장 생각하면 OS가 압승인 건 팩트임. 백교수님 명예? 그거 입고 있으면 밥이 나오냐 잠이 나오냐? 그냥 편하게 돈 벌자 친구야.</p>
+                </div>
+
+                <div class="comment-item">
+                    <p class="text-[12px] font-bold text-green-600">백서진바라기본3</p>
+                    <p class="text-[13px] text-gray-700">ㄴ 전 돈보다 백교수님의 그 '간지'를 택하겠습니다. 저번에 응급실에서 <b>Aortic Dissection(대동맥 박리)</b> 환자 실려 왔을 때 교수님 등장하자마자 상황 정리되는 거 보고 지렸음.. <b class="text-blue-700">"너희들 비켜. 내가 집도한다."</b> 이 한마디에 인턴들 홍해 갈라지듯 갈라짐 ㄷㄷ</p>
+                </div>
+
+                <div class="comment-item">
+                    <p class="text-[12px] font-bold">익명</p>
+                    <p class="text-[13px] text-gray-700">ㄴ 얘들아 다 관둬라.. 성적 안 되면 가고 싶어도 못 가는 게 <b>Dermatology(피부과)</b>랑 <b>Psychiatry(정신과)</b>다. 백교수님이 너희한테 욕하는 건 그나마 관심이라도 있는 거야. 무관심이 제일 무섭다 ㅋㅋㅋ</p></div>
+                </div>
+            </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=W&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">6시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">교수님 배경화면 본 사람??</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">어제 질문하러 교수실 갔다가 교수님 폰 화면 봤는데, 어떤 여자분이 뒤돌아서 웃고 있는 사진이더라. 얼굴은 안 보이는데 분위기 미쳤음. 교수님 그 사진 보면서 되게 쓸쓸해 보이는 표정 짓고 계시던데... 내가 들어가니까 바로 정색하시더라.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 67</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>와... 상상만 해도 서사 한 편 뚝딱이다.</div>
+                <div class="comment-item"><b>익명 2</b><br>그 차가운 양반이 쓸쓸한 표정이라니... 갭차이 무엇</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=E&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">8시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">백서진 교수님 MBTI 드디어 알아냄</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">INTJ의 결정체임. 이성 100%, 효율 100%, 완벽주의 100%. 근데 와이프분 한정으로 INFJ로 변한다는 게 학계의 정설임.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 45</span><span class="text-cyan-600">💬 0</span></div>
+            </div>
+            <div class="comment-section"><p class="text-sm text-gray-400">댓글이 없습니다.</p></div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=H&background=FFF7ED&color=9A3412&size=24" class="rounded-md"><span class="font-bold text-sm">학식빌런</span><span class="text-xs text-gray-400">9시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">오늘 삼승병원 지하 식당 돈까스 나왔다!!!</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">수술방에서 6시간 동안 쫓겨나고 멘탈 털렸는데 돈까스 보니까 눈물 난다. 소스 듬뿍 부어서 먹는 중. 의대 다니면서 유일한 낙이 맛있는 점심 메뉴라니... 참 소박하다 우리 인생 ㅠㅠ</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 152</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>ㄴ부럽다... 난 교수님이 논문 정리하래서 삼각김밥으로 때움</div>
+                <div class="comment-item"><b>익명 2</b><br>돈까스는 못 참지. 나도 지금 내려간다</div>
+            </div>
+        </div>
+
+                <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=Z&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">좀비본3</span><span class="text-xs text-gray-400">1시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">어제 새벽 4시에 제1학습실에서 백서진 교수님 마주친 썰 ㄷㄷ</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    커피 5잔째 마시고 정신 나가서 복도에서 혼자 <b>Tying(매듭)</b> 연습하고 있었거든? 근데 갑자기 뒤에서 <br>
+                    <b class="text-blue-700">"너, 매듭이 왜 그 모양이니? 환자 혈관을 묶으려는 거야, 아니면 보따리를 묶으려는 거야?"</b><br>
+                    라는 낮은 목소리가 들림... 돌아보니까 교수님 당직 서다가 나오신 건지 가운만 걸치고 안경 슥 고쳐 쓰시더라. <br><br>
+                    진심 기절할 뻔했는데 교수님이 내 손가락 슥 보더니 <b class="text-blue-700">"손 떨지 마. 네가 떨면 환자는 죽어. 가서 30분만 자고 와."</b> 하고 에너지바 하나 던져주고 가심... <br><br>
+                    나 지금 설레서 잠 다 깼다. 이거 입덕 부정기냐?
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 1,102</span><span class="text-cyan-600">💬 58</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item">
+                    <p class="text-[12px] font-bold text-blue-600">인턴나부랭이</p>
+                    <p class="text-[13px] text-gray-700">ㄴ 야... 그거 입덕 아니고 재난 경보야 ㅋㅋㅋ 너 이제 백서진 교수님 눈에 띈 거임. 다음 실습 때 무조건 <b>Scrub(수술 참여)</b> 서게 될 거다. 미리 <b>Anatomy(해부학)</b> 싹 다 외워놔라. 교수님이 <b class="text-blue-700 text-[11px]">"너, 이 동맥 이름이 뭐라고?"</b> 물어봤는데 대답 못 하면 그날로 지옥행임.</p>
+                </div>
+
+                <div class="comment-item author-tag">
+                    <p class="text-[12px] font-bold text-white">국시생본4</p>
+                    <p class="text-[13px] text-gray-700">ㄴ ㄹㅇ... 작년에 나 <b>PK(실습생)</b> 돌 때 교수님이 <b>CT(컴퓨터 단층촬영)</b> 판독시키면서 <b class="text-blue-700 text-[11px]">"너 눈엔 이게 안 보이니?"</b> 하시는데 내 눈엔 내 눈물밖에 안 보였음 ㅠㅠ</p>
+                </div>
+
+                <div class="comment-item">
+                    <p class="text-[12px] font-bold text-orange-400">본1귀요미</p>
+                    <p class="text-[13px] text-gray-700">ㄴ 우와아... 에너지바 던져주시는 거 완전 드라마 아니에요? 백교수님 츤데레 끝판왕이신 듯! 저도 빨리 실습 나가서 교수님 뵙고 싶어요!</p>
+                </div>
+
+                <div class="comment-item ml-4 border-l-2 border-gray-200 pl-3">
+                    <p class="text-[11px] font-bold text-orange-500">야마장인본2</p>
+                    <p class="text-[12px] text-gray-700">ㄴ 본1아, 꿈 깨... 너 내일 <b>Biochemistry(생화학)</b> 시험 족보나 다 봤니? 백교수님 만나기 전에 유급부터 걱정해야 할걸 ㅋㅋㅋ 어제 도서관에서 울면서 나간 애 너 아니었냐?</p>
+                </div>
+
+                <div class="comment-item">
+                    <p class="text-[12px] font-bold text-green-600">좀비본3</p>
+                    <p class="text-[13px] text-gray-700">ㄴ ㅋㅋㅋㅋㅋ 맞아, 우리 학번 다 같이 울고 있음. 근데 에너지바 포장지에 <b>'집중해.'</b> 라고 매직으로 써져 있더라... 교수님 글씨체까지 섹시해서 벽 부쉈음.</p>
+                </div>
+
+                <div class="comment-item">
+                    <p class="text-[12px] font-bold text-red-600">CS전공의</p>
+                    <p class="text-[13px] text-gray-700">ㄴ 하... 애기들아 부럽다... 나 어제 수술방에서 <b>Bleeding(출혈)</b> 못 잡아서 교수님한테 <b class="text-blue-700 text-[11px]">"너 손은 장식이니?"</b> 소리 듣고 화장실에서 5분 울고 나왔다. 그래도 교수님이 퇴근할 때 고생했다고 커피 기프티콘 보내주심... 병 주고 약 주고 장인임.</p>
+                </div>
+
+                <div class="comment-item">
+                    <p class="text-[12px] font-bold text-gray-500">익명</p>
+                    <p class="text-[13px] text-gray-700">ㄴ ㄴㄴ 저거 가스라이팅 맞다니까 ㅋㅋㅋ 근데 솔직히 백서진 교수님 <b>Suture(봉합)</b> 하는 거 한 번 보면 다른 과 못 감. 손동작이 거의 예술임. 사람이 어떻게 저렇게 정확하지?</p>
+                </div>
+
+                <div class="comment-item">
+                    <p class="text-[12px] font-bold">삼승의대수호자</p>
+                    <p class="text-[13px] text-gray-700">ㄴ 다들 힘들어도 좀만 버텨라. 백교수님이 무섭게 해도 너희 실력 하나는 확실하게 키워주시잖아. 나중에 환자 앞에서 당당한 의사 되려면 지금 흘리는 눈물이 다 밑거름이다. 열공해라 좀비들아!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=P&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">10시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">PK(실습생)들아, 교수님이 EKG 읽어보라 하면 도망가라</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">교수님: "이 환자 EKG에서 ST-segment elevation 보이는 이유가 뭐라고 생각하나?"<br>나: "어... 그게... (머리 하얘짐)"<br>교수님: "공부 안 할 거면 가운 벗고 나가세요. 환자 생명이 달린 일에 '어'는 없습니다." 진심 멘탈 가루 됨.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 53</span><span class="text-cyan-600">💬 1</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>'어' 하는 순간 사망 플래그임 ㅋㅋㅋ 수고했다 동기야</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=F&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">12시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">백교수님 가운 주머니에 든 거 장난감 아냐?</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">방금 회진 도는데 교수님 가운 주머니에 무슨 조그만 곰인형 같은 거 삐져나와 있더라 ㅋㅋㅋㅋㅋ 설마 본인 취향은 아닐 테고 와이프가 넣어준 건가? 그 차가운 가운에 곰인형이라니 개웃김</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 78</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>와이프가 준 부적 같은 거 아냐? "무사히 퇴근해라" 뭐 이런 거 ㅋㅋ</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>ㄴ교수님 그거 발견하고 피식 웃는 거 봤다... 내 심장 멈추는 줄</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=G&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">어제</span></div>
+                <h3 class="font-bold text-lg mb-2">백서진 교수님은 집이 병원인 듯</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">주 3회 당직이라는데 내가 볼 땐 그냥 매일 계심. 새벽 4시에 중환자실 가도 계시고 아침 7시 컨퍼런스에도 칼같이 나타남. 하얀 피부가 점점 투명해지는 거 같은데 안 쓰러지는 게 기적이다.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 34</span><span class="text-cyan-600">💬 0</span></div>
+            </div>
+            <div class="comment-section"><p class="text-sm text-gray-400">댓글이 없습니다.</p></div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=H&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">어제</span></div>
+                <h3 class="font-bold text-lg mb-2">교수님 퇴근길에 백화점 쇼핑백 들고 가시더라</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">어제 수술 12시간 집도하고 나오시더니 초췌한 얼굴로 백화점 쇼핑백 소중하게 들고 주차장 가심. 기념일인가? 그 와중에 선물 챙기는 거 보면 찐사랑이긴 한가 봐.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 92</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>미안해서 보상심리로 사가는 듯 ㅠㅠ 흉부외과 남편 둔 죄...</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>ㄴ근데 교수님 안목 높아서 선물도 예쁜 것만 고르실 것 같음</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=J&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">3일 전</span></div>
+                <h3 class="font-bold text-lg mb-2">백서진 교수님은 사과를 안 받으심?</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">실습 때 실수해서 죄송하다고 했더니 "사과는 본인 마음 편하자고 하는 거고, 의사의 실수는 사과로 끝날 일이 아닙니다. 다시 하세요." 하고 가버리심... 나 그 자리에서 얼음 됨.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 65</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>와... 뼈 때리는 거 보소. 역시 팩폭 장인</div>
+                <div class="comment-item"><b>익명 2</b><br>뒤에서 레지던트 쌤한테 보충 교육 시켜주라고 따로 연락하신대.. 츤데레임</div>
+                <div class="comment-item text-blue-600 font-bold"><b>익명 3</b><br>ㄹㅇ 갓서진... 무서운데 존경할 수밖에 없다</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=H&background=DBEAFE&color=1E40AF&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">방금 전</span></div>
+                <h3 class="font-bold text-lg mb-2">백교수님 폰 발신인 '내 심장' 직관함 ㅋㅋㅋ</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">컨퍼런스 준비 중에 교수님 폰 울렸는데 발신인이 '내 심장'임 ㅋㅋㅋㅋ 다들 잘못 본 줄 알고 눈 비볐는데 교수님이 아주 자연스럽게 나가시더니 목소리 톤 낮춰서 "응, 곧 들어가. 저녁? 당신 먹고 싶은 거로." 이러심 ㅠㅠ 우리 털던 그 악마 백서진 맞냐고...</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 2,140</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-red-500"><b>익명 1</b><br>내 심장 ㅋㅋㅋㅋ 흉부외과 교수님다운 저장이네 ㅋㅋㅋㅋ</div>
+                <div class="comment-item text-blue-500"><b>익명 2</b><br>ㄴ 야 진짜 부럽다... 사모님은 전생에 나라가 아니라 지구를 구하신 듯</div>
+                <div class="comment-item"><b>익명 3</b><br>교수님한테 우리는 '내 짐'이고 사모님은 '내 심장'인 거네... 눈물 난다.</div>
+            </div>
+        </div>
+                <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=V&background=FDF2F8&color=BE185D&size=24" class="rounded-md"><span class="font-bold text-sm">서진사랑나라사랑</span><span class="text-xs text-gray-400">방금</span></div>
+                <h3 class="font-bold text-lg mb-2">[강의평가] 흉부외과학 - 백서진</h3>
+                <div class="bg-red-50 p-4 rounded-xl border border-red-100 mb-4">
+                    <p class="text-sm font-bold text-red-600 mb-1">평점: ★ 5.0 / 5.0</p>
+                    <p class="text-xs italic text-red-400 leading-relaxed">"교수님은 흉부외과의 신이고, 나는 그저 그분의 suture(봉합사)일 뿐..."</p>
+                </div>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    솔직히 과제 많고 퀴즈 빡센 거 인정함. 근데 교수님 목소리 톤이랑 수트 핏 보고 있으면 75분 순삭임. 질문 대답 못 해서 혼날 때도 "내가 부족해서 교수님 기분을 상하게 해드렸구나" 하고 반성하게 됨. 실력? 대한민국 흉부외과에 이만한 커리큘럼 없음. 교수님, 유급시켜도 좋으니 내년에도 교수님 강의 듣게 해주세요... 사랑합니다...
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 420</span><span class="text-cyan-600">💬 4</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>작성자 최소 백서진 교수님 지하실에 감금당한 거 아님? ㅋㅋㅋㅋ</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>ㄴ근데 솔직히 나도 오늘 교수님 타이 매는 거 보고 5.0 결심함. 반박 시 내 말이 다 맞음.</div>
+                <div class="comment-item"><b>익명 3</b><br>이 정도면 종교 아니냐? 삼승의대 '백서진교' 탄생 ㄷㄷ</div>
+                <div class="comment-item author-tag">글쓴이<br>너네도 교수님이 안경 슥 올리면서 "다시." 한 마디 하는 거 직관하면 이렇게 된다.</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=P&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">1시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">본1인데 백서진 교수님 수업 원래 이 정도로 빡센가요?</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    진심 공부할 양이 생물학적 한계를 넘어선 것 같아요... 잠 줄여가며 하는데도 퀴즈는 반타작이고, 교수님은 강의실 들어오실 때마다 공기부터 압수하시는 기분인데 ㅠㅠ 선배님들 이거 진짜 버티면 끝이 나긴 하나요? 아니면 제가 의대랑 안 맞는 걸까요?
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 82</span><span class="text-cyan-600">💬 5</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1 (본4)</b><br>후배야 원래 본1 때는 자기가 단백질로 구성된 유기체라는 사실이 원망스러운 법이다. 정상임.</div>
+                <div class="comment-item text-blue-600"><b>익명 2 (본3)</b><br>백교수님 수업은 버티는 게 아니라 '살아남는 것'에 의의를 둬라. F만 면해도 넌 승리자임.</div>
+                <div class="comment-item text-blue-600"><b>익명 3 (졸업생)</b><br>ㄴ나 현직인데, 그때 배운 거 필드 나오면 피가 되고 살이 된다. 물론 당시엔 나도 교수님 안경 깨버리고 싶었음 ^^</div>
+                <div class="comment-item"><b>익명 4</b><br>교수님도 사람이야... 아마도... (물론 잠 안 자고 수술하는 거 보면 사이보그 같긴 함)</div>
+                <div class="comment-item author-tag">글쓴이<br>선배님들 감사합니다... 일단 오늘만 더 살아남아 볼게요... (해리슨을 펴며)</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=K&background=FFFBEB&color=D97706&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">3시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">소아과 한이준 교수님은 진짜 천사다... (feat. 백서진)</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    한교수님 회진 도는데 애기 환자가 교수님 가운에 스티커 잔뜩 붙여놨거든? 근데 "허허, 우리 00이가 디자인해줬네?" 하면서 그대로 진료 보심 ㅋㅋㅋ <br><br>
+                    그러다 복도에서 백서진 교수님 마주쳤는데, 백교수님이 한심하다는 듯 쳐다보니까 "자네도 하나 붙여줄까? 흉부외과는 너무 삭막해." 하고 윙크하심 ㅋㅋㅋㅋ 백교수님 진심 혐오스러운 표정 짓는데 개웃겼음.
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 215</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>삼승의대 유일한 힐링존... 소아과... 한교수님 사랑해요</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>백서진한테 윙크 날릴 수 있는 사람 저분밖에 없을 듯 ㅋㅋㅋㅋ</div>
+                <div class="comment-item"><b>익명 3</b><br>한교수님 실력도 탑티어인데 성격까지 좋아서 전공의 지원자 박터짐</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=O&background=ECFDF5&color=065F46&size=24" class="rounded-md"><span class="font-bold text-sm">뼈맞추는사람</span><span class="text-xs text-gray-400">8시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">정형외과 최민준 교수님 수술방 기세 ㄷㄷ</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    정형외과 실습 갔는데 진짜 목수인 줄 알았음. 망치랑 드릴 소리 장난 아니고 ㅋㅋㅋ 교수님 팔뚝 근육 보는데 저걸로 내 뼈도 맞춰주시면 바로 회복될 것 같더라. 흉부외과가 예술이라면 정형외과는 그냥 상남자 공사판임.
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 142</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>정형외과 수술방 들어가면 골절 환자보다 내 멘탈이 먼저 골절됨</div>
+                <div class="comment-item"><b>익명 2</b><br>백서진 교수님이 핀셋으로 수놓는다면, 최민준 교수님은 해머로 집을 지으심</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=H&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">12시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">우리 학습실에 '중얼거리는 해골' 출몰함;;</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    방금 새벽 3시에 3학습실 갔는데, 어떤 동기가 눈은 풀린 채로 해부학 모델(해골) 손잡고 "너는 뼈가 206개라 좋겠다... 외울 게 없어서..." 이러면서 울고 있더라. 진심 의대가 사람 여럿 망쳐놓는 듯. 나도 그거 보고 무서워서 다시 책상 앉아 족보 펴는 중.
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 198</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>그거 나 아니냐? 기억이 안 나는데... 필름 끊긴 듯</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>교수님들은 우리가 이러는 거 아실까... 알면 시험 범위를 좀 줄여주시겠냐고 ㅠㅠ</div>
+                <div class="comment-item text-blue-600 font-bold"><b>익명 3</b><br>ㄴ백서진: "의사가 잠을 못 자는 건 환자가 편히 잠들기 위해서입니다." (무표정)</div>
+            </div>
+        </div>
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=A&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">어제</span></div>
+                <h3 class="font-bold text-lg mb-2">우리 과 애들이랑 술 마시면 분위기 이럼</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    동기A: "자, 이제 ADH(항이뇨호르몬) 억제될 때까지 마시는 거다!"<br>
+                    동기B: "야, 내 Liver Enzyme(간 수치) 생각 좀 해줘. 벌써 Acetaldehyde 농도 Max인 듯."<br>
+                    나: "작작 좀 해라... 안주나 먹어. Glucose 떨어지니까."<br><br>
+                    결국 옆 테이블 사람들이 "쟤네 생물학 전공인가?" 하고 수군대더라. 아냐... 우린 그냥 갈 곳 잃은 의대생들이야...
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 287</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>술 마시는 게 아니라 거의 임상시험 수준이네 ㅋㅋㅋㅋㅋ</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>취해서 비틀거리면 "Ataxia 오셨네요"라고 하겠네 ㅋㅋㅋㅋ</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=W&background=111827&color=fff&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">1시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2"><span class="hot-badge">HOT</span> 오늘 백교수님 수술방 스크럽 들어갔다가 압도당함</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    갑자기 환자 블리딩 심해져서 다들 패닉 오고 분위기 지옥이었거든? 근데 백교수님이 한 손으로 출혈 부위 딱 잡더니 아주 낮고 건조한 목소리로 <strong>"정숙해. 손 놓으면 넌 나한테 죽어."</strong>라고 딱 한마디 하심. <br><br>
+                    그 순간 소름 돋게 정적 흐르고 교수님 손 움직임만 보이는데... 진심 사람이 아니더라. 결국 환자 살려내고 장갑 벗으면서 <strong>"어레스트 직전이었어. 정리해."</strong> 하고 나가시는데 뒷모습에서 아우라가...
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 1,204</span><span class="text-cyan-600">💬 12</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>ㄴ와... "손 놓으면 나한테 죽어"라니... 이게 진짜 백서진이지.</div>
+                <div class="comment-item"><b>익명 2</b><br>이 썰은 주기적으로 끌올해야 함. 백서진은 인성(우리 한정)은 까도 실력은 못 깐다.</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=M&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">3시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">나 오늘 백교수님 다시 봄...</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    어떤 환자 보호자가 돈 없다고 수술 포기하겠다고 복도에서 울고 계셨거든. 근데 교수님이 무심하게 지나가다가 딱 멈춰 서서 <strong>"수술비는 사회사업팀이랑 정리됐습니다. 보호자님은 환자 분 깨어나실 때 옆에 계시면 됩니다."</strong>라고 툭 던지고 가심.<br><br>
+                    알고 보니 교수님이 개인적으로 기부금 연결해주신 거였음... 학생들한테는 악마인데 환자 가족한텐 진짜 수호신임 ㅠㅠ
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 892</span><span class="text-cyan-600">💬 5</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>옆에 있기나 하래... 말투는 차가운데 마음은 진짜 ㅠㅠ</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>교수님 연봉 상당수가 이런 식으로 나간다는 소문이 진짜였네.</div>
+            </div>
+        </div>
+            <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=Z&background=E0F2FE&color=0369A1&size=24" class="rounded-md"><span class="font-bold text-sm">좀비본과생</span><span class="text-xs text-gray-400">16시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">정신차려보니 72시간째 깨어있음</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">월요일 퀴즈, 화요일 실습, 오늘 시험... 아메리카노 10잔 마셨더니 심장이 ventricular fibrillation(심실세동) 오는 기분이다. 거울 봤는데 웬 해골이 서 있네. 의대 오면 다들 이렇게 되는 거 맞지?</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 245</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>ㄴ제발 잠 좀 자라... 그러다 환자보다 네가 먼저 실려감</div>
+                <div class="comment-item"><b>익명 2</b><br>의대생은 광합성 대신 카페인으로 생명 유지하는 생명체임 ㅋㅋㅋ</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=C&background=fef3c7&color=92400e&size=24" class="rounded-md"><span class="font-bold text-sm">카페인중독자</span><span class="text-xs text-gray-400">2시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">삼승의대 제3전시실 옆 카페 키오스크 꿀팁</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">애들아, 시험 기간에 여기 키오스크 줄 서지 말고 미리 앱으로 주문해라. 그리고 여기 '레몬에이드' 시키지 마. 저번에 어떤 동기가 그거 마시면서 복도 지나가다가 병리학 교수님이랑 마주쳤는데, 교수님이 "자네는 비타민 C 섭취보다 지식 섭취가 시급해 보이는데?"라고 하심 ㅋㅋㅋ 무조건 '아이스 아메리카노' 시켜서 '나는 잠을 자지 않는 열혈 학생이다'라는 이미지를 구축해라.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 256</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>ㄴ여기는 얼음 적게 달라고 하면 교수님들이 '냉철함이 부족하다'고 생각하신다는 루머가 있음</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>여기 알바생분들 우리 상태만 보고 "샷 추가해드릴까요?" 먼저 물어보심 ㅋㅋㅋ</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=B&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">데이터의예언자</span><span class="text-xs text-gray-400">8시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">[데이터] 학식에 '삼겹살 비빔밥' 나오면 시험 망함</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">지난 3년간의 데이터를 분석해봤다. 신기하게 학식에 특식(삼겹살 비빔밥, 치즈 돈까스) 나오는 날 오후에는 꼭 서프라이즈 퀴즈가 있거나 교수님들이 기분 안 좋으심. 영양사 선생님이랑 교수님들이랑 무슨 커넥션 있는 거 아니냐? 내일 메뉴 삼겹살이니까 다들 긴장해라.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 678</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>ㄴ와 이거 진짜임. 나 저번에 돈까스 곱빼기 먹고 백서진 교수님한테 털려서 체함</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>영양사님: "최후의 만찬이란다 얘들아..."</div>
+                <div class="comment-item"><b>익명 3</b><br>난 그냥 내일 굶고 도서관 갈란다... 살고 싶어</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=D&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">1시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">방금 카페에서 동기 때문에 쪽팔려 죽을 뻔함</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">밤샘 공부하고 카페 갔는데, 알바생이 "얼음 많이 드릴까요?" 하니까 내 동기가 멍한 표정으로 "아, Hypothermia(저체온증) 올 정도로 가득 채워주세요." 이럼 ㅋㅋㅋㅋ 알바생 표정 굳어지는데 옆에서 내가 "아뇨 그냥 아이스 찐하게요..." 하고 끌고 나옴. 제발 사회성 좀 챙기자 동기야 ㅠㅠ</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 342</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>ㄴㅋㅋㅋㅋㅋㅋㅋㅋ 저체온증 라떼냐고 ㅋㅋㅋㅋㅋ</div>
+                <div class="comment-item"><b>익명 2</b><br>난 저번에 매운 거 먹고 "아... 캡사이신 때문에 Epinephrine 수치 폭발한다" 이랬다가 여친한테 차일 뻔</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=D&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">1시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">백서진 교수님 사실 우리한테 랩 하시는 거 아님?</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    오늘 회진 때 내 차트 보시더니 안경 슥 고쳐 쓰면서 <br>
+                    <b class="text-blue-700">"너는 근거도 없고, 대책도 없고, 의지도 없네."</b><br>
+                    하시는데 박자감이 예사롭지 않음 ㅋㅋㅋㅋ 속으로 '비트 주세요' 할 뻔했잖아. 가사 내용이 팩폭이라 멘탈 털리는 게 문제지만...
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 482</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>라임 보소 ㅋㅋㅋ '없고, 없고, 없네' ㅋㅋㅋㅋ</div>
+                <div class="comment-item"><b>익명 2</b><br>교수님 랩네임 추천: MC 메스(Mess)</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=F&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">배달의의사</span><span class="text-xs text-gray-400">어제</span></div>
+                <h3 class="font-bold text-lg mb-2">교수님 피해서 치킨 먹기 난이도 최상</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    당직실에서 치킨 뜯으려는데 교수님 구두 소리 들려서 빛의 속도로 숨김. 근데 교수님이 문 빼꼼 열더니 <br>
+                    <b class="text-blue-700">"냄새가 17번가 교촌이네. 적당히 먹고 일해."</b><br>
+                    하고 가심 ㅋㅋㅋㅋ 아니 어떻게 브랜드까지 맞히시냐고 ㅋㅋㅋㅋ
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 428</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>백교수님 후각도 서전(Surgeon)급이네 ㅋㅋㅋㅋ 소름</div>
+                <div class="comment-item text-blue-600"><b>익명 3</b><br>"적당히 먹고 일해"라니... 먹는 건 허락해 주신 게 킬포 ㅋㅋㅋ</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=H&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">2시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">나 오늘 백교수님 때문에 울었다...</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    성적 개판이라 교수실 앞에서 자퇴할 생각까지 했다고 울먹거리니까 교수님이 한심하다는 듯 보시더니 <br>
+                    <b class="text-blue-700">"네가 포기하면 너 기다리는 미래의 환자들은 누가 살려? 실력 없으면 잠을 줄여서라도 채워. 내 방에 족보 정리해둔 거 있으니까 가져가든가."</b><br>
+                    툭 던진 말인데 진심 구원받은 기분이었어.
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 782</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>와... 교수님이 직접 정리한 족보? 그건 국보급인데 ㄷㄷ</div>
+                <div class="comment-item text-blue-600"><b>익명 3</b><br>역시 갓서진... 겉바속촉의 정석이시다</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=W&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">2시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">본관 엘베에서 백교수님 인형 뽑기 하시는 거 봄?</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    교수님이 진지한 얼굴로 스마트폰 인형 뽑기 게임 하고 계시더라. 엄청 집중해서 손가락 움직이시던데... 그것도 수술 테크닉 연습하시는 건가? ㅋㅋㅋ
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 312</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>교수님한테 인형 뽑기는 '중력과 마찰력을 이용한 시뮬레이션'일걸</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>ㄴ사모님이 인형 좋아하셔서 따주려고 연습하시는 거라는 썰이 유력함 ㅠㅠ 사랑꾼...</div>
+            </div>
+        </div>
+        <div class="post-card">
+            <div class="post-body">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=P&background=E0E7FF&color=4338CA&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">4시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">정신과 조교수님 면담하다가 울 뻔한 썰</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    시험 기간에 너무 힘들어서 정신과 조유진 교수님 찾아갔는데, 내 사정 들으시더니 표정 싹 변하시면서 그러시더라. <br><br>
+                    "아, 백서진... 그건 질환이 아니라 재난이에요. 이건 약도 없어요. 그냥 버티세요." 하고 사탕 하나 쥐여주심 ㅋㅋㅋㅋ 교수님들도 인정하는 '재난' 백서진...
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 512</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>ㅋㅋㅋㅋㅋㅋㅋㅋ '질환이 아니라 재난' ㅋㅋㅋㅋ 명언 터졌다</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>조교수님은 다 알고 계신 거야... 멘탈 깎아먹는 주범인 거</div>
+            </div>
+        </div>
+        <div class="post-card">
+            <div class="post-body">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=W&background=FEE2E2&color=991B1B&size=24" class="rounded-md"><span class="font-bold text-sm">숨참기장인</span><span class="text-xs text-gray-400">어제</span></div>
+                <h3 class="font-bold text-lg mb-2">백교수님 컨퍼런스 때는 숨 쉬는 법을 까먹음</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    펜으로 탁자 톡톡 치면서 <b class="text-blue-700">"질문 없어? 그럼 내가 하죠."</b> 하실 때 진심 심장 멈추는 줄. 질문 한 번 하실 때마다 학생들 영혼이 한 겹씩 벗겨지는 기분임. 교수님은 사람을 살리기도 하지만, 학생들은 말로 말려 죽이시는 듯...
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 320</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>나 오늘 교수님이랑 눈 마주쳤는데 순간 저승사자인 줄 알았음</div>
+                <div class="comment-item"><b>익명 3</b><br>그래도 저 카리스마 덕분에 환자들이 믿고 눕는 거겠지? (눈물을 닦으며)</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=H&background=F3F4F6&color=374151&size=24" class="rounded-md"><span class="font-bold text-sm">본1새내기</span><span class="text-xs text-gray-400">1시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">백서진 교수님 퀴즈... 진짜 구석에서 나와?</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    내일 첫 퀴즈인데 선배들이 주석(footnote)까지 다 외우라고 겁줘서... 설마 그 작은 글씨까지 물어보시겠어? 아니면 그냥 굵은 글씨 위주로 봐도 될까? 제발 살려줘. 유급만은 피하고 싶어.
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 86</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>순진한 후배네... 교수님은 그림 밑에 0.5포인트로 적힌 연도도 물어보실 분임.</div>
+                <div class="comment-item"><b>익명 2</b><br>굵은 글씨만 본다고? ㅋㅋㅋ 내일 "너 독서하러 왔니?" 소리 듣게 될 거다.</div>
+            </div>
+        </div>
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=I&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">인턴생존기</span><span class="text-xs text-gray-400">1시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">인턴 3주 차, 내가 의사인지 드레싱 기계인지 모르겠다</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    오늘 36시간 당직 서고 퇴근하려는데 백서진 교수님이 복도에서 날 보시더니 <b>"넌 젊은 애가 눈에 초점이 없어. 가서 수액이라도 맞고 오든가."</b>라고 하심.. 교수님, 제가 수액 놓을 기운도 없는데요.. ㅠㅠ <br><br>
+                    후배들아, 인턴 오면 '잠'이라는 게 얼마나 고귀한 건지 알게 될 거다. 어제는 화장실 변기에 앉아서 5분 졸다가 간호사 선생님이 나 죽은 줄 알고 문 두드림..
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 256</span><span class="text-cyan-600">💬 18</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>본1</b><br>선배님 힘내세요... 병동에서 멍하니 서 있는 분들 보면 다 선배님 같아서 눈물 나요.</div>
+                <div class="comment-item text-blue-600"><b>본4</b><br>내 미래네.. 하.. 국시 공부하기 싫다.</div>
+                <div class="comment-item author-tag">글쓴이<br>얘들아 국시 공부할 때가 제일 행복한 거야.. 그땐 앉아라도 있잖아..</div>
+            </div>
+        </div>
+
+<div class="post-card">
+    <div class="post-body" onclick="toggleComments(this)">
+        <div class="flex items-center gap-2 mb-3">
+            <img src="https://ui-avatars.com/api/?name=R&background=111827&color=fff&size=24" class="rounded-md">
+            <span class="font-bold text-sm">CS레지</span>
+            <span class="text-xs text-gray-400">3시간 전</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">백서진 교수님께 컨펌 받다가 자아 분열 온 썰</h3>
+        <p class="text-sm text-gray-700 leading-relaxed mb-4">
+            수술 계획 세워서 갔는데 교수님이 딱 3초 보더니 차트 덮으시더라. 
+            <b class="text-blue-700">"넌 지금 환자를 살리고 싶은 거야, 아니면 네 오만을 증명하고 싶은 거야?"</b><br> 
+            하시는데 멘붕 옴. 근데 다시 수정해서 가니까 
+            <b>"...이제 좀 의사 같네."</b><br> 
+            하시는데.. 나도 모르게 울컥해서 "감사합니다!"라고 외침. 나 완전 가스라이팅 당한 거냐? 아님 성장한 거냐?
+        </p>
+        <div class="flex gap-4 text-xs font-bold">
+            <span class="text-red-500">👍 512</span>
+            <span class="text-cyan-600">💬 12</span>
+        </div>
+    </div>
+    <div class="comment-section">
+        <div class="comment-item text-blue-600"><b>본3</b><br>와.. '의사 같군'은 백서진 교수님 사전에 최고 등급 칭찬 아닌가요?</div>
+        <div class="comment-item author-tag">글쓴이<br>맞아.. 그 말 한마디에 3일 밤샌 피로가 0.1초 만에 풀리더라.. 나 미쳤나 봐.</div>
+        <div class="comment-item author-tag">글쓴이<br>하루에 100번 후회하는데, 환자 심장 다시 뛰는 거 보면 101번 다시 하기로 결심하게 됨.</div>
+    </div>
+</div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=F&background=DBEAFE&color=1E40AF&size=24" class="rounded-md"><span class="font-bold text-sm">펠노예</span><span class="text-xs text-gray-400">5시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">어제 백교수님이랑 단둘이 소주 마심 ㄷㄷ</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    논문 때문에 밤늦게까지 같이 남았는데 교수님이 <b>"나와. 술이나 한 잔 하자."</b> 하셔서 따라감. 병원 앞 포장마차에서 사모님 첫사랑 얘기부터 의사로서의 고민까지 다 들었다.. 밖에서 보니까 그냥 환자 걱정뿐인 바보시더라. <br><br>
+                    마지막에 <b>"너 고생하는 거 다 알아. 조금만 더 버텨."</b>라고 하시는데 진심 삼승병원에 뼈 묻을 뻔.
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 734</span><span class="text-cyan-600">💬 20</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>레지던트</b><br>형님.. 그 자리에 저도 끼워주시지.. 저도 위로가 필요해요 ㅠㅠ</div>
+                <div class="comment-item text-blue-600"><b>본2</b><br>이런 썰 들으면 진짜 공부할 의욕 생겨요.. 교수님 너무 인간적이심 ㅠㅠ</div>
+                <div class="comment-item author-tag">글쓴이<br>공부 열심히 해라 얘들아.. 교수님이 기다리신다 (독설과 함께)</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=N&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">1시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">오늘 백서진-강혁 교수님 커피 내기 결과 ㅋㅋㅋ</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    두 분이 복도 지나가다가 응급실 환자 히스토리 맞히기 내기하심. 강교수님이 "이건 무조건 간이다!" 했는데 백교수님이 슥 보더니 <b>"비장인데."</b> 하심. 검사 결과 비장 파열 ㅋㅋㅋㅋ <br><br>
+                    강교수님이 허탈하게 "야, 넌 돗자리 깔아라" 하니까 백교수님이 무표정하게 <b>"돗자리 깔 시간에 환자 한 명 더 봐야지. 난 에스프레소 4샷으로 부탁할게."</b> 하고 가심 ㅋㅋㅋ 강교수님 뒤에서 "야 이 독한 놈아!!" 소리 지름.
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 621</span><span class="text-cyan-600">💬 7</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>에스프레소 4샷 ㅋㅋㅋㅋ 사람 심장도 뛰게 하고 본인 심장도 조지실 생각인가</div>
+                <div class="comment-item"><b>익명 2</b><br>강혁 교수님 맨날 당하시면서 계속 내기 거는 거 너무 하찮고 귀여우심 ㅠㅠ</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=S&background=DBEAFE&color=1E40AF&size=24" class="rounded-md"><span class="font-bold text-sm">병원지킴이</span><span class="text-xs text-gray-400">4시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">교수님들도 학생들 뒷담화 하실까?</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    교수실 문이 살짝 열려 있어서 한이준 교수님이랑 백서진 교수님 대화가 들림. <br><br>
+                    한교수님: "서진아, 애들 너무 잡지 마. 다 울겠다." <br>
+                    백교수님: <b>"울어야 기억에 오래 남는 법이야. 너처럼 오냐오냐하면 얘네 나중에 환자 앞에서 울 걸?"</b> <br><br>
+                    ㅠㅠ 우리 걱정해주시는 한교수님과 철벽 백교수님.. 밸런스 미쳤다.
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 489</span><span class="text-cyan-600">💬 5</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>"울어야 오래 기억된다" ㅋㅋㅋㅋ 소름 돋는 교육 철학이네</div>
+                <div class="comment-item"><b>익명 3</b><br>저 대화 끝에 백교수님이 한교수님한테 슬쩍 사탕 주셨다는 썰도 있음 (츤데레설)</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=N&background=111827&color=fff&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">5시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">오늘 백교수님 회진 때 레지던트 깨지는 거 봄;;</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    데이터 소수점 하나 틀렸는데, 교수님이 안경 고쳐 쓰시며 <b>"네 이 사소한 오차가 환자한테는 100%의 절망이 될 수 있다는 거, 몰라?"</b>라고 조용히 읊조리심. 소리 지르는 것보다 100배 무서움. <br><br>
+                    근데 환자분께는 "걱정 마세요. 수치는 제가 다시 잡겠습니다." 하시는데 진심 소름 돋게 멋있더라.
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 652</span><span class="text-cyan-600">💬 4</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>그 레지던트 살아있냐? ㄷㄷ</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>ㄴ들리는 소문에 의하면 화장실에서 울고 있었다고 함 ㅠㅠ</div>
+            </div>
+        </div>
+            <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=S&background=ECFDF5&color=064E3B&size=24" class="rounded-md"><span class="font-bold text-sm">편의점털이범</span><span class="text-xs text-gray-400">8시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">우리 인생 너무 불쌍하지 않냐 ㅋㅋㅋ</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">방금 새벽 2시에 실습 보고서 쓰다가 배고파서 편의점 갔는데, 거기 우리 조 애들 다 모여 있더라 ㅋㅋㅋ 서로 말도 안 하고 야식 사서 꾸역꾸역 먹는데 뭔가 동지애 느껴지면서도 눈물 남. 남들은 이 시간에 술 마시고 노는데 우리는 삼각김밥이 유일한 낙이라니...</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 320</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>그래도 나중에 돈 많이 벌어서 맛있는 거 많이 사 먹자... (라고 위로해본다)</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>ㄴ돈 벌 시간도 없을걸? ㅋㅋㅋㅋ 환자 봐야지...</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=S&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">1시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">제2학습실 뒤쪽 소파에서 자는 사람 누구냐</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">거기 명당인 거 어떻게 알고 벌써 자리를 잡았대... 나 어제 당직 수준으로 공부하다가 잠깐 눈 붙이러 갔는데, 이미 동기 하나가 침 흘리면서 해부학 책 베고 자고 있더라. 그 옆에 '깨우면 사망' 포스트잇 붙어있길래 조용히 바닥에서 잤다.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 142</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>ㄴ거기 원래 본4 형들 전용석 아님? ㅋㅋㅋ 간 큰 놈이네</div>
+                <div class="comment-item"><b>익명 2</b><br>저번에 백서진 교수님이 거기 지나가다가 자는 애 보고 "아직 살아있군." 하고 가셨다는 썰 들음</div>
+                <div class="comment-item text-blue-600"><b>익명 3</b><br>ㄴ와... 교수님 기준에는 자는 것도 '생존 신고'구나 ㅋㅋㅋㅋ</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=R&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">3시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">오늘 백교수님 가운 벗는 거 본 사람? 대박임</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">로비에서 퇴근하시는 거 봤는데, 가방에서 엄청 예쁜 꽃다발을 꺼내시더라고. 마침 전화 온 건지 "응, 지금 가. 기다려." 하시는데 목소리에서 꿀 떨어짐;; 우리가 알던 그 '뇌가 없나' 하시던 분 맞냐고... 너무 다정해서 소름 돋음.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 521</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>ㄴ와... "기다려" 한마디에 내 심장이 왜 뛰냐 ㅠㅠㅠ</div>
+                <div class="comment-item"><b>익명 2</b><br>사모님 전생에 나라를 구하신 게 틀림없음. 백서진의 다정함을 독점하다니.</div>
+                <div class="comment-item text-blue-600"><b>익명 3</b><br>백교수님 배경화면 사모님 뒷모습이라는 소문이 있던데 사실임?</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=L&background=FDF2F8&color=BE185D&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">5시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">오늘 교수님 휴게실에서 도시락 드시는 거 봄</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">웬 정성 가득한 도시락 드시고 계시더라. 반찬 중에 하트 모양 달걀말이 있었는데 그거 보고 교수님이 진짜 미세하게 입꼬리 올리면서 웃으심. 나랑 눈 마주치자마자 바로 무표정으로 돌아오시긴 했는데... 교수님도 사랑꾼이긴 한가 봐.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 389</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>달걀말이 하나에 무너지는 흉부외과의 전설... 갭차이 미쳤다</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>그 웃음 본 작성자 눈 삽니다. 제발 공유 좀 ㅠㅠ</div>
+            </div>
+        </div>
+
+       <div class="post-card">
+    <div class="post-body" onclick="toggleComments(this)">
+        <div class="flex items-center gap-2 mb-3">
+            <img src="https://ui-avatars.com/api/?name=TOP&background=DBEAFE&color=1E40AF&size=24" class="rounded-md">
+            <span class="font-bold text-sm">과탑출신조상님</span>
+            <span class="text-xs text-gray-400">1시간 전</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">본2 뉴비들아, 이번 학기 '블록강의' 라인업 미리 보고 멘탈 잡아라</h3>
+        <p class="text-xs text-gray-500 mb-4">※ 주의: 아래 과목들은 한 달 간격으로 돌아가며 당신의 뇌를 조질 예정입니다.</p>
+        
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-4 space-y-4">
+            <div>
+                <p class="text-sm font-bold text-blue-800">1. 순환기/흉부외과 블록 (백서진 교수님)</p>
+                <p class="text-xs text-gray-700 mt-1">본2 첫 고비. 심장 구조 외우다가 본인 심장 멎을 수 있음. 백교수님 퀴즈 타임 때 "모르겠습니다" 하면 그날로 자아 소멸임. "의학은 암기가 아니라 이해다"라면서 암기량은 전교 1등급으로 주심.</p>
+            </div>
+            <div>
+                <p class="text-sm font-bold text-green-800">2. 소아과 블록 (한이준 교수님)</p>
+                <p class="text-xs text-gray-700 mt-1">유일한 힐링 주간. 교수님이 "힘들지?" 하면서 초콜릿 나눠주실 때 다들 울음 참음. 근데 시험 문제는 안 힐링임. 애들 몸무게당 약 용량 계산 틀리면 바로 재시(Re-test)행.</p>
+            </div>
+            <div>
+                <p class="text-sm font-bold text-red-800">3. 응급/외상학 블록 (강혁 교수님)</p>
+                <p class="text-xs text-gray-700 mt-1">수업 속도가 거의 심실세동급. 칠판 필기 다 지워졌는데 교수님은 이미 다음 챕터 설명 중임. "빨리 안 적어? 환자 죽었어!"라고 소리 지르시는데 진심 등줄기에 식은땀 남.</p>
+            </div>
+            <div>
+                <p class="text-sm font-bold text-purple-800">4. 신경계 블록 (신경외과 최교수님)</p>
+                <p class="text-xs text-gray-700 mt-1">수업 시간 내내 적막강산. 교수님 목소리가 너무 저음이라 최면 걸린 듯 잠듦. 그러다 갑자기 지목당해서 "자네, 방금 내가 말한 베르니케 영역의 손상 기전이 뭔가?" 질문받으면 바로 뇌 정지 옴.</p>
+            </div>
+        </div>
+        <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 1,421</span><span class="text-cyan-600">💬 32</span></div>
+    </div>
+    
+    <div class="comment-section">
+        <div class="comment-item"><b>본2_노예1</b><br>블록강의 스케줄표 보고 휴학 버튼 찾고 있습니다...</div>
+        <div class="comment-item author-tag">글쓴이<br>ㄴ응 늦었어~ 유급만 면하자 ^^</div>
+        <div class="comment-item text-blue-600 font-bold"><b>익명_본4</b><br>백서진 교수님 작년에 "공부하기 싫으면 나가서 노가다를 해. 적어도 거긴 사람 목숨은 안 다루니까."라고 하심. 진짜 살기 느껴지더라...</div>
+        <div class="comment-item text-red-600"><b>응급실귀신</b><br>강혁 교수님 수업은 진짜 레드불 마시고 들어도 못 따라감 ㅋㅋㅋㅋㅋ</div>
+        <div class="comment-item"><b>사탕러버</b><br>한이준 교수님 덕분에 지난 학기 버텼습니다.. 소아과가 최고다 진짜</div>
+        <div class="comment-item text-blue-800"><b>익명_본1</b><br>본1인데 이거 보니까 내년이 더 무서워요 ㅠㅠㅠ</div>
+        <div class="comment-item author-tag">글쓴이<br>ㄴ본1은 해부나 해라... 임상은 차원이 다르다...</div>
+    </div>
+</div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=W&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">어제</span></div>
+                <h3 class="font-bold text-lg mb-2">백교수님 아내분 병원 오신 거 본 사람? 대박임</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">비 오는 날 백교수님이 가운도 안 벗고 달려 나오시더라고. 아내분 쪽으로 우산 씌워주면서 어깨 감싸 안고 들어가는데 진짜 영화인 줄. 평소엔 그렇게 예민하신 분이 아내분 말 한마디에는 그냥 고분고분하시더라.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 612</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>백서진이 달려나갔다고? 걷는 것도 시크하신 분이? 대박 사건이다</div>
+                <div class="comment-item"><b>익명 2</b><br>교수님 사랑 앞에선 그냥 한 남자인가 봄... 내 심장 책임져 ㅠㅠ</div>
+                <div class="comment-item text-blue-600"><b>익명 3</b><br>이래서 삼승의대 여학생들 이상형 1위가 백서진인 거임</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=L&background=FDF2F8&color=BE185D&size=24" class="rounded-md"><span class="font-bold text-sm">로맨스는사치</span><span class="text-xs text-gray-400">6시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">썸남이 손 잡아줬는데 설렘보다 당황함 ㅋㅋㅋ</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">어제 데이트하는데 그분이 내 손을 딱 잡았거든? 근데 설레는 게 아니라 나도 모르게 '오... 수족냉증 있으신가? 혈액순환 체크해봐야 하나?' 이 생각부터 들더라 ㅋㅋㅋㅋㅋ 상대방이 손 데워준다 할 때 나는 심박수 측정하고 싶었음...</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 192</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>진정한 삼승의대생이네 ㅋㅋㅋ 합격이다</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>난 저번에 남친 눈 보는데 결막염인가 싶어서 뚫어지게 봤다가 남친이 자기 그렇게 좋냐고 착각함..</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=S&background=DBEAFE&color=1E40AF&size=24" class="rounded-md"><span class="font-bold text-sm">삼승어르신</span><span class="text-xs text-gray-400">30분 전</span></div>
+                <h3 class="font-bold text-lg mb-2">라떼는 말이야... 백서진 교수님이 더 무서웠어</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">10년 전 처음 부임하셨을 땐 진심 '터미네이터'였음. 회진 때 졸던 동기한테 "뇌가 휴식 중인가? 평생 쉬게 해줄까?" 하셨던 거 아직도 생각남... 그래도 너네 희망 잃지 마라. 실력만큼은 진짜 최고인 분이다.</p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 512</span><span class="text-cyan-600">💬 6</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>와 찐조상님 등판 ㄷㄷㄷ 선배님 지금 연봉 얼마인가요?</div>
+                <div class="comment-item"><b>익명 2</b><br>"평생 쉬게 해줄까" ㅋㅋㅋㅋ 역시 독설 클라스 어디 안 가네요</div>
+                <div class="comment-item author-tag">글쓴이<br>나 지금 다른 병원 과장인데도 저번에 학회에서 마주치고 나도 모르게 90도로 인사했다...</div>
+            </div>
+        </div>
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=R&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">2일 전</span></div>
+                <h3 class="font-bold text-lg mb-2">우리 치프(전공의 4년차) 쌤 우는 거 봄...</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    오늘 백교수님 컨퍼런스 때 치프 쌤 리포트 보더니 "이게 최선입니까? 아침까지 다시 해오세요." 하고 나가심. 치프 쌤 복도에서 벽 짚고 눈물 훔치는데 마음 아파서 죽는 줄... 교수님은 눈물도 없으신가 ㅠㅠ 우리 미래 아니냐 이거...
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 167</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>교수님은 눈물 대신 카페인이 흐르시는 분이라 그래...</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>근데 저번에 백교수님, 치프 쌤 고생한다고 비싼 영양제 슬쩍 책상에 두고 가시는 거 내가 봄.</div>
+                <div class="comment-item"><b>익명 3</b><br>ㄴ병 주고 약 주고의 정석 ㅋㅋㅋㅋㅋ 근데 그 약이 존나 비싼 게 포인트</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=M&background=FDF2F8&color=BE185D&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">4시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">어제 공대랑 미팅했는데 분위기 갑분싸 됨...</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    공대 분들이 전공 얘기하길래 나도 모르게 "아, 저희는 요즘 백서진 교수님 때문에 심장이 쫄깃해요" 했거든? 근데 그분들이 "오, 그 교수님 잘생기셨어요?" 하길래 내가 "아뇨, 그분은 사람이 아니라 정밀 타격 레이저예요. 1mm 틀리면 죽음뿐임." 이라고 진지하게 설명함... <br><br>
+                    다들 술 마시다 말고 조용해지더라. 나 미팅 망한 거 맞지?
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 156</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>ㄴ미팅 나가서 교수님 무용담을 왜 풀어 ㅋㅋㅋㅋ 의대생 티 팍팍 냈네</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>근데 백교수님 비주얼이면 잘생겼다고 해도 거짓말은 아닌데... 성격이 문제지</div>
+                <div class="comment-item"><b>익명 3</b><br>공대생: (공포) "의대는 대체 어떤 곳일까..."</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=D&background=DCFCE7&color=166534&size=24" class="rounded-md"><span class="font-bold text-sm">꿈은잠자는것</span><span class="text-xs text-gray-400">8시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">이번 학기 목표 세웠다</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    1. 백서진 교수님 눈 3초 이상 마주치고 안 피하기 (실패 시 자퇴)<br>
+                    2. 재시(재시험) 안 보고 방학 때 인간답게 잠자기<br>
+                    3. 학식 돈까스 나오는 날 1등으로 줄 서기<br><br>
+                    가능할 것 같냐? 응 안 돼~ 이미 1번에서 광탈할 예정 ^^
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 112</span><span class="text-cyan-600">💬 2</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item"><b>익명 1</b><br>1번은 생존 본능 때문에 불가능함. 시신경이 거부할걸?</div>
+                <div class="comment-item text-blue-600"><b>익명 2</b><br>난 3번이라도 성공하고 싶다... 돈까스 소진되면 삶의 의욕 상실함</div>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-body" onclick="toggleComments(this)">
+                <div class="flex items-center gap-2 mb-3"><img src="https://ui-avatars.com/api/?name=I&background=f2f2f2&color=ccc&size=24" class="rounded-md"><span class="font-bold text-sm">익명</span><span class="text-xs text-gray-400">2시간 전</span></div>
+                <h3 class="font-bold text-lg mb-2">나만 머리 나쁜 거 같아서 우울하다</h3>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                    옆자리 동기는 어제 술 마시고 오늘 퀴즈 다 맞히는데, 나는 밤새워 외워도 백교수님 질문 하나에 머릿속 하얘짐. "모르겠습니다" 하고 서 있는데 자괴감 장난 아니더라... <br><br>
+                    전국에서 공부 좀 한다고 모인 곳이라지만, 여기 있으면 내가 그냥 평범한 돌멩이가 된 기분임. 나만 이래?
+                </p>
+                <div class="flex gap-4 text-xs font-bold"><span class="text-red-500">👍 210</span><span class="text-cyan-600">💬 3</span></div>
+            </div>
+            <div class="comment-section">
+                <div class="comment-item text-blue-600"><b>익명 1</b><br>ㄴ나도 그래... 여기선 1등 아니면 다 바보 취급받는 기분이지. 힘내자 동기야.</div>
+                <div class="comment-item"><b>익명 2</b><br>백교수님 앞에 서면 천재도 바보 됨. 네 머리가 나쁜 게 아니라 교수님 기가 센 거야.</div>
+                <div class="comment-item text-blue-600 font-bold"><b>익명 3</b><br>버티는 놈이 이기는 거다. 졸업장만 따면 똑같은 의사야!</div>
+            </div>
+        </div>
+
+  </section>
+
+        <section id="page-notifications" class="page p-4">
+            <h2 class="text-2xl font-bold mb-6">알림</h2>
+            <div class="space-y-4">
+                <div class="p-4 bg-white rounded-xl border-l-4 border-red-500 shadow-sm">
+                    <p class="text-sm font-bold">[긴급] 흉부외과 실습 과제 제출 1시간 전!</p>
+                    <p class="text-xs text-gray-500 mt-1">놓치면 백서진 교수님의 '레이저'를 받게 됩니다.</p>
+                </div>
+                <div class="p-4 bg-white rounded-xl border shadow-sm text-sm">
+                    <b>익명1</b>님이 '나만 머리 나쁜...' 글에 댓글을 남겼습니다.
+                </div>
+            </div>
+        </section>
+
+        <section id="page-settings" class="page p-4">
+            <h2 class="text-2xl font-bold mb-6">설정</h2>
+            <div class="bg-white rounded-2xl border overflow-hidden">
+                <div class="p-4 border-b flex justify-between items-center"><span>내 정보 수정</span><span class="text-gray-400">></span></div>
+                <div class="p-4 border-b flex justify-between items-center text-red-500 font-bold"><span>로그아웃</span></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="fixed bottom-0 max-w-md w-full bg-white/95 backdrop-blur-md border-t border-gray-100 p-2 pb-5 flex justify-around items-center z-50">
+        <div onclick="navTo('home', this)" class="nav-btn flex flex-col items-center gap-1 text-red-500 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="text-[10px] font-black">홈</span>
+        </div>
+        <div onclick="navTo('board', this)" class="nav-btn flex flex-col items-center gap-1 opacity-30 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 8h10"/><path d="M7 12h10"/><path d="M7 16h10"/></svg>
+            <span class="text-[10px]">게시판</span>
+        </div>
+        <div onclick="navTo('notifications', this)" class="nav-btn flex flex-col items-center gap-1 opacity-30 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            <span class="text-[10px]">알림</span>
+        </div>
+        <div onclick="navTo('settings', this)" class="nav-btn flex flex-col items-center gap-1 opacity-30 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span class="text-[10px]">설정</span>
+        </div>
+    </footer>
+
+    <div id="calendar-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeCalendar()"></div>
+        <div class="absolute bottom-0 left-0 right-0 max-w-md mx-auto bg-white rounded-t-[2.5rem] p-8 transition-transform transform translate-y-full" id="modal-content">
+            <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-8"></div>
+            <h3 class="text-2xl font-black mb-4">2026년 2월</h3>
+            <div class="bg-red-600 p-4 rounded-xl text-white">
+                <p class="font-bold">23일: 백서진 교수님 총괄 평가</p>
+                <p class="text-xs">※ F학점 시 즉시 유급</p>
+            </div>
+            <button onclick="closeCalendar()" class="mt-6 w-full py-3 bg-gray-100 rounded-xl font-bold">닫기</button>
+        </div>
+    </div>
+
+    <script>
+        function navTo(pageId, el) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + pageId).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.add('opacity-30');
+                btn.classList.remove('text-red-500');
+                btn.querySelector('span').classList.remove('font-black');
+                btn.querySelector('svg').setAttribute('stroke-width', '2');
+            });
+
+            el.classList.remove('opacity-30');
+            el.classList.add('text-red-500');
+            el.querySelector('span').classList.add('font-black');
+            el.querySelector('svg').setAttribute('stroke-width', '2.5');
+        }
+
+        function toggleComments(el) {
+            const section = el.nextElementSibling;
+            if (section.style.display === "block") {
+                section.style.maxHeight = null;
+                section.style.opacity = "0";
+                setTimeout(() => { section.style.display = "none"; }, 300);
+            } else {
+                section.style.display = "block";
+                setTimeout(() => {
+                    section.style.maxHeight = section.scrollHeight + "px";
+                    section.style.opacity = "1";
+                }, 10);
+            }
+        }
+
+        function openCalendar() {
+            const modal = document.getElementById('calendar-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('translate-y-full');
+                content.classList.add('translate-y-0');
+            }, 10);
+        }
+
+        function closeCalendar() {
+            const modal = document.getElementById('calendar-modal');
+            const content = document.getElementById('modal-content');
+            content.classList.add('translate-y-full');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+    </script>
+</body>
+</html>
